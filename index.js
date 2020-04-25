@@ -8,12 +8,23 @@ let productList = [
 ]
 
 
+//Local Storage initialization
+
+if (!localStorage.product) {
+  let plStringified = JSON.stringify(productList);
+localStorage.setItem('product', plStringified);
+}
+
+let productRaw  = localStorage.getItem('product');
+let productListLocalStorage = JSON.parse(productRaw); 
+
+
 class Table {
   constructor(data) {
     let promise = new Promise((resolve, reject) => {
 setTimeout(() => {
   console.log('preparing data...');
-  const backendData = productList;
+  const backendData = productListLocalStorage;
   resolve(backendData);
 }, 500)
     });
@@ -74,7 +85,7 @@ setTimeout(() => {
       if (event.keyCode == '13') {
           
             let inputValue = $('#input_search').val().toLowerCase();
-            if (!inputValue) return;    
+            if (!inputValue) this.render(this.renderList);    
             let newList = this.renderList.filter(product =>  product.name.toLowerCase().includes(inputValue));
             $('.table').remove();
             this.render(newList);
@@ -86,7 +97,7 @@ setTimeout(() => {
   //Search Button Listener
   document.querySelector('#button_search').onclick = () => {
     let inputValue = $('#input_search').val().toLowerCase();
-    if (!inputValue) return;    
+    if (!inputValue) this.render(this.renderList);    
     let newList = this.renderList.filter(product =>  product.name.toLowerCase().includes(inputValue));
     $('.table').remove();
     this.render(newList);
@@ -122,6 +133,7 @@ event.preventDefault();
         } 
         $('table').remove();
         this.render(this.renderList);
+        localStorage.setItem('product', JSON.stringify(this.renderList));
       
       });
      
@@ -354,6 +366,7 @@ let dataSending = new Promise((resolve, reject) => {
      id: Math.random()+$('#name').val(),
      cities: citiesArr
    });
+   localStorage.setItem('product', JSON.stringify(this.renderList));
     
 resolve();    
   }, 1000)
@@ -381,6 +394,7 @@ let dataSending = new Promise((resolve, reject) => {
     let citiesArr = [];
     document.querySelectorAll('input[type="checkbox"]:checked').forEach(item => citiesArr.push(item.value));
     this.renderList[this.currentIndex].cities = citiesArr;
+    localStorage.setItem('product', JSON.stringify(this.renderList));
     
 resolve();    
   }, 1000)
