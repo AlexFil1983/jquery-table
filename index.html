@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Product Table</title>
+</head>
+<body>
+  <div class="container">
+
+    <!-- Search and Item buttons -->
+    <div class="search d-flex mb-2 mt-2 flex-row">
+      <input class="col-4" id="input_search" type="text" placeholder="Enter product name..."></input>
+      
+      <button id="button_search" class="ml-2 col-2 btn btn-info">Search</button>
+      <button class="col-1 btn btn-info ml-auto" id="add">Add New</button>
+    </div>
+  <!-- Table   -->
+  </div>
+  
+  <!-- Modal Delete -->
+  <div id="delete-form-container">
+    <form id="delete-form">
+      <div id="delete-message"></div>
+      <button id="yes" class="btn btn-info"  type="button">Yes</button>
+      <button id="no" class="btn btn-danger" type="button">No</button>
+    </form>
+  </div>
+
+
+ <!-- Modal Edit -->
+ <div id="edit-form-container">
+  <form id="edit-form">
+    <h3 id="product_heading">Add New Product</h3><hr>
+    <label for="name"><b>Name:</b></label><br>
+    <input type="text" value="product name" id="name" name="name" required><br>
+    <span id="validate_name" style="color: red; visibility: hidden;">Name length should be 5-15 characters</span><br>
+        
+    <label for="email"><b>Supplier email</b></label><br>
+    <input type="text" id="email" value="enter email" name="email" required><br>
+    <span id="validate_email" style="color: red; visibility: hidden;">Enter valid email</span><br>
+        
+    <label for="count"><b>Count</b></label><br>
+    <input type="text" id="count" value="count" name="count" required 
+    onkeypress='return event.charCode >= 48 && event.charCode <= 57'><br>
+    <span id="validate_count" style="color: red; visibility: hidden;">Enter count</span><br>
+
+    <label for="price"><b>Price</b></label><br>
+    <input id="price" onkeypress='return event.charCode >= 48 && event.charCode <= 57 || event.charCode == 46' value="price" name="count" type="text" required><br>
+    <span id="validate_price" style="color: red; visibility: hidden;">Enter the price</span><br><br>
+
+    <!-- Delivery start   -->
+    <div class="delivery d-flex">
+         
+      <div class="d-flex-inline p-2"> 
+      <p><b>Delivery:</b></p>
+      <select style="height: 30px" id="country" name="country" 
+      
+      onchange="let country = $('option:selected').val(); 
+      document.querySelector('#russia').style.display = 'none'; 
+      document.querySelector('#belarus').style.display = 'none'; 
+      document.querySelector('#usa').style.display = 'none';
+      document.querySelector('#'+country).style.display = 'block';
+      ">
+       
+       <option value='russia'>Russia</option>
+       <option value='belarus'>Belarus</option>
+       <option value='usa'>USA</option>; 
+       
+      </select>
+      <br><br>
+      </div>
+
+
+    <!-- Russian cities -->
+    <div class="d-flex-inline p-1 ml-3 mb-4" id="russia" style="width: 180px; display: block; border: solid 1px lightgray">
+      <!--check all button-->
+      <input type="checkbox" id='checkAll-Russia' name="checkAll" value="checkAll" onclick="$('#russia > input:checkbox').not(this).prop('checked', this.checked);">
+      <label for="checkAll">Check all</label><hr>
+  
+      <input type="checkbox" id="Moscow" name="Moscow" value="Moscow">
+      <label for="Moscow">Moscow</label><br>
+      
+      <input type="checkbox" id="Saint-Petersburg" name="Saint-Petersburg" value="Saint-Petersburg">
+      <label for="Saint-Petersburg">Saint-Petersburg</label><br>
+      <input type="checkbox" id="Saratov" name="Saratov" value="Saratov">
+      <label for="Saratov">Saratov</label>
+      </div>
+  
+      <!-- Belarus cities -->
+      <div class="d-flex-inline p-1 ml-3 mb-4" id="belarus" style="width: 180px; display: none; border: solid 1px lightgray">
+      <!--check all button-->
+      <input type="checkbox" id='checkAll-Belarus' name="checkAll" value="checkAll" onclick="$('#belarus > input:checkbox').not(this).prop('checked', this.checked);">
+      <label for="checkAll">Check all</label><hr>
+  
+  
+        <input type="checkbox" id="Minsk" name="Minsk" value="Minsk">
+        <label for="Minsk">Minsk</label><br>
+    
+        <input type="checkbox" id="Vitebsk" name="Vitebsk" value="Vitebsk">
+        <label for="Vitebsk">Vitebsk</label><br>
+       
+        </div>
+  
+       <!-- USA cities -->
+      <div class="d-flex-inline p-1 ml-3 mb-4" id="usa" style="width: 180px; display: none; border: solid 1px lightgray">
+      
+        <!--check all button-->
+      <input type="checkbox" id='checkAll-Usa' value="checkAll" name="checkAll" onclick="$('#usa > input:checkbox').not(this).prop('checked', this.checked);">
+      <label for="checkAll">Check all</label><hr>
+            
+        <input type="checkbox" id="New York" name="New York" value="New York">
+        <label for="city1">New York</label><br>
+    
+        <input type="checkbox" id="Los-Angeles" name="Los-Angeles" value="Los-Angeles">
+        <label for="Los-Angeles">Los-Angeles</label><br>
+      </div> 
+
+
+    </div>
+    <!-- End of Delivery -->
+
+          
+        
+    <button class="button btn-info" id="save" type="text">Save changes</button>
+    <button class="button btn-danger" type="text" id="cancel">Cancel</button>
+
+  </form>
+</div>
+
+
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
+<script src="index.js"></script>
+<link rel="stylesheet" type="text/css" href="style.css">
+
+</body>
+</html>
